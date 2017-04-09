@@ -1,0 +1,7 @@
+*.pyc
+*~
+.idea
+*.[jJ][pP][gG]
+*.txt
+*.dump
+*.ini
