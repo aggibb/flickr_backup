@@ -13,11 +13,11 @@ Authentication with Flickr is handled with the `flickrapi` module, which stores 
 
 ### Stored information
 
-The backup contains information relevant to the original photo (such as creation date/time, pixel dimensions) along with information that Flickr creates and stores itself (such as an ID, server farm ID, URL to the photo, upload and modified dates) and any user-defined data (e.g. title, description, privacy settings). Geolocation data are stored if present.
-
-Notes are not stored at this time.
+The backup contains information relevant to the original photo (such as creation date/time, pixel dimensions) along with information that Flickr creates and stores itself (such as an ID, server farm ID, URL to the photo, upload and modified dates) and any user-defined data (e.g. title, description, privacy settings). Geolocation data are stored if present. The date/time of last update is also stored.
 
 As part of the authentication process, your Flickr username, NSID, and full name are also stored.
+
+Notes are not stored at this time.
 
 Take a look at `create_schema.sql` to get the full list of information stored in the database.
 
@@ -27,7 +27,7 @@ The tools should be run in the order below.
 
 #### setup_flickr_backup.py
 
-Establishes the database and obtains Flickr authentication credentials. The user must provide a Flickr API key and secret when prompted.
+Establishes the database and obtains Flickr authentication credentials. The user must provide a Flickr API key and secret when prompted, and then allow access to their Flickr account.
 
 #### flickr_backup.py
 
@@ -35,17 +35,17 @@ The main backup tool, `flickr_backup` retrieves photo details a single page (of 
 
 Options:
 
-* `-n`, `--numpages` - number of "pages" of photos to store
+* `-n`, `--numpages`: number of "pages" of photos to store
 
-* `-p`, `--pagenum` - specific page number to backup
+* `-p`, `--pagenum`: specific page number to backup
 
 These two options should be used in tandem if the backup is to be carried out in stages.
-
-The date/time of last update is stored in the database.
 
 #### update_flickr_backup.py
 
 Checks for new or updated photos since the last backup, and stores the details in the database.
+
+Thanks go to Flickr's API that returns details for recently updated photos without having to page through by hand.
 
 ### Important note
 
